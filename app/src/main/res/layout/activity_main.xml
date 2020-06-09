@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textViewCaculator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:textAlignment="textEnd"
+        android:textColor="@color/colorCaculator"
+        android:textSize="40sp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <TextView
+        android:id="@+id/textViewResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="0"
+        android:textAlignment="textEnd"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/colorResult"
+        app:layout_constraintBottom_toTopOf="@id/gridlayout" />
+
+    <GridLayout
+        android:id="@+id/gridlayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        android:columnCount="4"
+        android:orientation="horizontal"
+        android:useDefaultMargins="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_columnSpan="2"
+            android:layout_gravity="fill"
+            android:background="@drawable/border_background"
+            android:onClick="editClick"
+            android:tag="C"
+            android:text="C" />
+
+        <Button
+            style="?android:attr/borderlessButtonStyle"
+            android:background="@drawable/border_background"
+            android:onClick="editClick"
+            android:tag="CE"
+            android:text="CE" />
+
+        <Button
+            style="?android:attr/borderlessButtonStyle"
+            android:background="@drawable/border_background"
+            android:onClick="operatorClick"
+            android:tag="+"
+            android:text="+" />
+
+        <Button
+            style="?android:attr/borderlessButtonStyle"
+            android:background="@drawable/border_background"
+            android:onClick="numberClick"
+            android:tag="1"
+            android:text="1" />
+
+        <Button
+            style="?android:attr/borderlessButtonStyle"
+            android:background="@drawable/border_background"
+            android:onClick="numberClick"
+            android:tag="2"
+            android:text="2" />
+
+        <Button
+            style="?android:attr/borderlessButtonStyle"
+            android:background="@drawable/border_background"
+            android:onClick="numberClick"
+            android:tag="3"
+            android:text="3" />
+
+        <Button
+            style="?android:attr/borderlessButtonStyle"
+            android:background="@drawable/border_background"
+            android:onClick="operatorClick"
+            android:tag="-"
+            android:text="-" />
+
+        <Button
+            style="?android:attr/borderlessButtonStyle"
+            android:background="@drawable/border_background"
+            android:onClick="numberClick"
+            android:tag="4"
+            android:text="4" />
+
+        <Button
+            style="?android:attr/borderlessButtonStyle"
+            android:background="@drawable/border_background"
+            android:onClick="numberClick"
+            android:tag="5"
+            android:text="5" />
+
+        <Button
+            style="?android:attr/borderlessButtonStyle"
+            android:background="@drawable/border_background"
+            android:onClick="numberClick"
+            android:tag="6"
+            android:text="6" />
+
+        <Button
+            style="?android:attr/borderlessButtonStyle"
+            android:background="@drawable/border_background"
+            android:onClick="operatorClick"
+            android:tag="x"
+            android:text="x" />
+
+        <Button
+            style="?android:attr/borderlessButtonStyle"
+            android:background="@drawable/border_background"
+            android:onClick="numberClick"
+            android:tag="7"
+            android:text="7" />
+
+        <Button
+            style="?android:attr/borderlessButtonStyle"
+            android:background="@drawable/border_background"
+            android:onClick="numberClick"
+            android:tag="8"
+            android:text="8" />
+
+        <Button
+            style="?android:attr/borderlessButtonStyle"
+            android:background="@drawable/border_background"
+            android:onClick="numberClick"
+            android:tag="9"
+            android:text="9" />
+
+        <Button
+            style="?android:attr/borderlessButtonStyle"
+            android:background="@drawable/border_background"
+            android:onClick="operatorClick"
+            android:tag="÷"
+            android:text="÷" />
+
+        <Button
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_columnSpan="2"
+            android:layout_gravity="fill"
+            android:background="@drawable/border_background"
+            android:text="=" />
+
+
+        <Button
+            style="?android:attr/borderlessButtonStyle"
+            android:background="@drawable/border_background"
+            android:onClick="numberClick"
+            android:tag="0"
+            android:text="0" />
+
+        <Button
+            style="?android:attr/borderlessButtonStyle"
+            android:background="@drawable/border_background"
+            android:onClick="operatorClick"
+            android:tag="."
+            android:text="." />
+
+    </GridLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

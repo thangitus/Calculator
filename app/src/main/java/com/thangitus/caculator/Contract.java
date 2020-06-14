@@ -5,7 +5,7 @@ interface Contract {
    interface View {
       void showResult(String res);
 
-      void showCal(String cal);
+      void showMath(String sMath);
 
    }
 

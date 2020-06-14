@@ -23,8 +23,8 @@ public class MainActivity extends AppCompatActivity implements Contract.View {
       binding.textViewResult.setText(res);
    }
    @Override
-   public void showCal(String cal) {
-      binding.textViewCaculator.setText(cal);
+   public void showMath(String sMath) {
+      binding.textViewCaculator.setText(sMath);
    }
 
    public void editClick(View view) {

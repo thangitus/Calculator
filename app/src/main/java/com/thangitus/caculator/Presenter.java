@@ -10,6 +10,7 @@ class Presenter implements Contract.Presenter {
    private String res;
    private Contract.View view;
    private String current;
+   private boolean hasDot = false;
    public Presenter(Contract.View view) {
       this.view = view;
       sMath = "";
@@ -19,33 +20,49 @@ class Presenter implements Contract.Presenter {
    @Override
    public void numberClick(int num) {
       sMath += String.valueOf(num);
-      current = null;
-      view.showCal(sMath);
+      current = "";
+      view.showMath(sMath);
       calculator();
    }
    @Override
    public void operatorClick(String operator) {
-      if (current == null) {
-         current = operator;
-         sMath += current;
-      } else if (!operator.equals(current)) {
-         current = operator;
-         sMath = (String) sMath.subSequence(0, sMath.length() - 1);
-         sMath += current;
+      if (sMath.equals("") || (operator.equals(".") && hasDot))
+         return;
+
+      if (operator.equals("."))
+         hasDot = true;
+
+      if (operator.equalsIgnoreCase("=")) {
+         sMath = res;
+         view.showMath(sMath);
+         view.showResult("0");
+         return;
       }
-      view.showCal(sMath);
+
+      if (!operator.equals(current)) {
+         if (!current.equals(""))
+            sMath = (String) sMath.subSequence(0, sMath.length() - 1);
+         sMath += operator;
+      }
+      current = operator;
+      view.showMath(sMath);
    }
 
    @Override
    public void editClick(String tag) {
+      if (sMath.equals(""))
+         return;
+
       if (tag.equalsIgnoreCase("C")) {
          sMath = "";
-         view.showCal("0");
+         current = "";
+         view.showResult("0");
       } else {
          sMath = (String) sMath.subSequence(0, sMath.length() - 1);
-         calculator();
+         if (!isOperator(sMath.charAt(sMath.length() - 1)))
+            calculator();
       }
-      view.showCal(sMath);
+      view.showMath(sMath);
    }
 
    private void calculator() {
@@ -91,6 +108,10 @@ class Presenter implements Contract.Presenter {
             stack.push(s);
          }
       }
+      while (!stack.isEmpty()) {
+         res.add(stack.peek());
+         stack.pop();
+      }
       return res;
    }
    public String valueMath(List<String> elementMath) {
@@ -110,16 +131,16 @@ class Presenter implements Contract.Presenter {
                case '-':
                   num = num2 - num1;
                   break;
-               case '*':
+               case 'x':
                   num = num2 * num1;
                   break;
-               case '/':
+               case '÷':
                   num = num2 / num1;
                   break;
                default:
                   break;
             }
-            stack.push(Double.toString(num));
+            stack.push(Double.toString((double) Math.round(num * 1000) / 1000));
          }
       }
       return stack.pop();
@@ -128,13 +149,13 @@ class Presenter implements Contract.Presenter {
       if (c == '+' || c == '-')
          return 1;
 
-      if (c == '*' || c == '/')
+      if (c == 'x' || c == '÷')
          return 2;
 
       return 0;
    }
    private boolean isOperator(char c) {
-      char[] operator = {'+', '-', '*', '/'};
+      char[] operator = {'+', '-', 'x', '÷'};
       Arrays.sort(operator);
       return Arrays.binarySearch(operator, c) > -1;
    }

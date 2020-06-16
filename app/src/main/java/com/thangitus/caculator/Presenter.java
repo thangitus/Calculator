@@ -1,5 +1,8 @@
 package com.thangitus.caculator;
 
+import android.util.Log;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,16 +14,17 @@ class Presenter implements Contract.Presenter {
    private Contract.View view;
    private String current;
    private boolean hasDot = false;
+
    public Presenter(Contract.View view) {
       this.view = view;
-      sMath = "";
-      current = "";
+      this.sMath = "";
+      this.current = "";
    }
 
    @Override
    public void numberClick(int num) {
-      sMath += String.valueOf(num);
-      current = "";
+      this.sMath += String.valueOf(num);
+      this.current = "";
       view.showMath(sMath);
       calculator();
    }
@@ -35,6 +39,8 @@ class Presenter implements Contract.Presenter {
       if (operator.equalsIgnoreCase("=")) {
          sMath = res;
          view.showMath(sMath);
+         sMath = "";
+         current = "";
          view.showResult("0");
          return;
       }
@@ -114,7 +120,9 @@ class Presenter implements Contract.Presenter {
       }
       return res;
    }
+
    public String valueMath(List<String> elementMath) {
+      boolean divideByZero = false;
       Stack<String> stack = new Stack<String>();
       for (String s : elementMath) {
          char c = s.charAt(0);
@@ -135,16 +143,25 @@ class Presenter implements Contract.Presenter {
                   num = num2 * num1;
                   break;
                case '÷':
+                  if (num1 <= 0.00000000f) {
+                     divideByZero = true;
+                  }
                   num = num2 / num1;
                   break;
                default:
                   break;
+            }
+            if (divideByZero) {
+               stack.clear();
+               stack.push("Error");
+               break;
             }
             stack.push(Double.toString((double) Math.round(num * 1000) / 1000));
          }
       }
       return stack.pop();
    }
+
    private int priority(char c) {
       if (c == '+' || c == '-')
          return 1;
@@ -154,6 +171,7 @@ class Presenter implements Contract.Presenter {
 
       return 0;
    }
+
    private boolean isOperator(char c) {
       char[] operator = {'+', '-', 'x', '÷'};
       Arrays.sort(operator);

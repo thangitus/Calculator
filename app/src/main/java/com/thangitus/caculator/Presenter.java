@@ -14,6 +14,7 @@ class Presenter implements Contract.Presenter {
    private Contract.View view;
    private String current;
    private boolean hasDot = false;
+   private boolean hasError = false;
 
    public Presenter(Contract.View view) {
       this.view = view;
@@ -39,7 +40,7 @@ class Presenter implements Contract.Presenter {
       if (operator.equalsIgnoreCase("=")) {
          sMath = res;
          view.showMath(sMath);
-         sMath = "";
+         if (this.hasError) {sMath = ""; this.hasError = false;};
          current = "";
          view.showResult("0");
          return;
@@ -145,6 +146,7 @@ class Presenter implements Contract.Presenter {
                case '÷':
                   if (num1 <= 0.00000000f) {
                      divideByZero = true;
+                     this.hasError = true;
                   }
                   num = num2 / num1;
                   break;
@@ -153,7 +155,7 @@ class Presenter implements Contract.Presenter {
             }
             if (divideByZero) {
                stack.clear();
-               stack.push("Error");
+               stack.push("Error: Divide by zero");
                break;
             }
             stack.push(Double.toString((double) Math.round(num * 1000) / 1000));

@@ -56,8 +56,8 @@ class Presenter implements Contract.Presenter {
 
    @Override
    public void editClick(String tag) {
-      if (sMath.equals(""))
-         return;
+//      if (sMath.equals(""))
+//         return;
 
       if (tag.equalsIgnoreCase("C")) {
          sMath = "";

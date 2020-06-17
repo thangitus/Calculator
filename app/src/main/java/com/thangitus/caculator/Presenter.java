@@ -36,10 +36,16 @@ class Presenter implements Contract.Presenter {
 
       if (operator.equals("."))
          hasDot = true;
+      else
+         hasDot = false;
 
       if (operator.equalsIgnoreCase("=")) {
          sMath = res;
          view.showMath(sMath);
+
+         Log.i("SMATH", sMath);
+         if (sMath.contains(".")) hasDot = true; else hasDot = false;
+
          if (this.hasError) {sMath = ""; this.hasError = false;};
          current = "";
          view.showResult("0");
@@ -61,6 +67,7 @@ class Presenter implements Contract.Presenter {
 //         return;
 
       if (tag.equalsIgnoreCase("C")) {
+         hasDot = false;
          sMath = "";
          current = "";
          view.showResult("0");
